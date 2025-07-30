@@ -1,24 +1,22 @@
 package com.vignesh.electronics.ElectricityBillPredictorApp.config;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@RequiredArgsConstructor
 public class CORSConfig implements WebMvcConfigurer {
-
-    @Value("${frontend.origin}")
-    private String frontendOrigin;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOrigins(frontendOrigin)
+                .allowedOrigins(
+                        "https://electri-pro-ai.vercel.app", // Deployed Vercel frontend
+                        "http://localhost:5173"              // Local development
+                )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
-                .allowCredentials(true) // Optional: Enable if you're using cookies/session/JWT
-                .maxAge(3600); // Optional: Cache CORS for 1 hour
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 }
