@@ -384,6 +384,6 @@ export default function ChatBot() {
           )}
         </div>
       </div>
-    </section>
+    </section>   
   );
 }
